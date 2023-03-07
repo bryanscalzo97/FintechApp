@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const ButtonPrimary = ({ title, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
+    <TouchableOpacity onPress={onPress} style={styles.button} testID="button-primary">
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
 

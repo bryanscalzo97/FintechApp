@@ -1,14 +1,18 @@
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { generateStringDate } from '../../../../utils/utils'
+import Svg, { SvgProps, Path } from "react-native-svg"
+import SubtractIcon from '../../../../components/SubtractIcon/SubtractIcon'
+import PlusMinusIcon from '../../../../components/PlusMinusIcon/PlusMinusIcon'
 
-const Movements = ({data}) => {
+const Movements = ({data, route}) => {
   const navigation = useNavigation()
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity 
         style={styles.card}
-        onPress={() => navigation.navigate('Details')}
+        onPress={() => navigation.navigate('Details', {id: item.id, item})}
       >
         <View style={styles.imageContainer}>
           <Image
@@ -22,10 +26,12 @@ const Movements = ({data}) => {
         <View style={styles.bodyCard}>
           <View style={styles.textCard}>
             <Text style={styles.titleProduct}>{item.product}</Text>
-            <Text>26 de enero 2019</Text>
+            <Text>{generateStringDate(item?.createdAt)}</Text>
           </View>
           <View style={styles.numberCard}>
-            <Text style={styles.pointsQuantity}>{item.points}</Text>
+              <PlusMinusIcon value={item.is_redemption}/>
+              <Text style={styles.pointsQuantity}>{item.points}</Text>
+              <SubtractIcon />
           </View>
         </View>
       </TouchableOpacity>
@@ -73,7 +79,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
       },
       numberCard: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
       },
       title: {
         marginBottom: 20,
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
       pointsQuantity: {
         fontSize: 16,
         fontWeight: 800,
+        paddingRight: 12
       },
       image: {
         width: 55,

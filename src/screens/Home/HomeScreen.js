@@ -1,48 +1,73 @@
-import { View, Text, Button, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import React, { useEffect, useState} from 'react'
 import Header from './components/Header/Header'
 import Points from './components/Points/Points'
 import Movements from './components/Movements/Movements'
 import ButtonSecondary from '../../components/ButtonSecondary/ButtonSecondary'
-import { DataContext } from '../../contexts/apiContext';
+import axios from 'axios'
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary'
+import { calculatePoints, filterByRedemptionTrue, filterByRedemptionFalse } from './utils/utils'
 
+const HomeScreen = () => {
+  const [data, setData] = useState(null)
+  const [showAll, setShowAll] = useState(true)
+  const [points, setPoints] = useState('')
 
-const HomeScreen = ({ navigation }) => {
-  const {
-    data,
-    filteredData,
-    filter1,
-    filter2,
-    fetchData,
-    filterByFilter1,
-    filterByFilter2
-  } = useContext(DataContext);
+  const fetchData = async () => {
+    setShowAll(true)
+    try {
+      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
+      console.log(data)
+      setData(data)
+      const points = await calculatePoints(data)
+      setPoints(points)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const fetchDataProfit = async () => {
+    setShowAll(false)
+    try {
+      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
+      const filterData = await filterByRedemptionFalse(data)
+      setData(filterData)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const fetchDataExpenses = async () => {
+    setShowAll(false)
+    try {
+      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
+      const filterData = await filterByRedemptionTrue(data)
+      setData(filterData)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const handleFilter1Change = event => {
-    const { value } = event.target;
-    filterByFilter1(value);
-  };
-
-  const handleFilter2Change = event => {
-    const { value } = event.target;
-    filterByFilter2(value);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <Header />
-        <Points />
-        <Movements data={filteredData}/>
+        <Points points={points}/>
+        <Movements data={data}/>
       </View>
-        <View style={styles.buttonContainer}>
-          <ButtonSecondary title='Ganados'/>
-          <ButtonSecondary title='Canjeados'/>
-        </View>
+      {showAll ?
+          <View style={styles.buttonSecondaryContainer}>
+            <ButtonSecondary title='Ganados' onPress={() => fetchDataProfit()}/>
+            <ButtonSecondary title='Canjeados' onPress={() => fetchDataExpenses()}/>
+          </View>
+        : <View style={styles.buttonPrincipalContainer}>
+            <ButtonPrimary title='Todos' onPress={() => fetchData()}/>
+          </View>
+      
+      }
+      
        
     </View>
   )
@@ -61,10 +86,14 @@ const styles = StyleSheet.create({
       paddingRight: 20,
       flex: 1
     },
-    buttonContainer: {
+    buttonSecondaryContainer: {
       flexDirection: 'row',
       paddingLeft: 13,
       paddingRight: 13
+    },
+    buttonPrincipalContainer: {
+      paddingRight: 20,
+      paddingLeft: 20
     }
     
   })

@@ -1,19 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 
-const Points = () => {
+const Points = ({points}) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>TUS PUNTOS</Text>
+        <Text style={styles.title} testID="points-title">TUS PUNTOS</Text>
         <View style={styles.pointsContainer}>
-            <View style={styles.points}>
-                <Text style={styles.monthTitle}>Diciembre</Text>
-                <Text style={styles.monthPoints}>10,00.00 pts</Text>
+            <View style={styles.points} testID="points-month">
+                <Text style={styles.monthTitle} testID="points-month-title">Diciembre</Text>
+                <Text style={styles.monthPoints} testID="points-month-points">{points} pts</Text>
             </View>
         </View>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
     container: {

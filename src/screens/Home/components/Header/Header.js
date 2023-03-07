@@ -3,9 +3,9 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <View style={styles.container}>
-        <Text style={styles.title}>Bienvenido de vuelta!</Text>
-        <Text style={styles.name}>Ruben Rodriguez</Text>
+    <View style={styles.container} testID="header-container">
+        <Text style={styles.title} testID="header-title">Bienvenido de vuelta!</Text>
+        <Text style={styles.name} testID="header-name">Ruben Rodriguez</Text>
     </View>
   )
 }

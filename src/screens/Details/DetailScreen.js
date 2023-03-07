@@ -1,38 +1,30 @@
-import { View, Text, Button, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import React from 'react'
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary'
+import { generateStringDate } from '../../utils/utils';
 
-const DetailScreen = ({ navigation }) => {
-  const data = [
-    {
-      "createdAt": "2022-12-09T06:34:25.607Z",
-      "product": "Handmade Metal Shoes",
-      "points": 16434,
-      "image": "https://loremflickr.com/640/480/transport",
-      "is_redemption": false,
-      "id": "1"
-    }
-  ]
+
+const DetailScreen = ({ navigation, route }) => {
+   const { item } = route.params
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>DetailScreen</Text>
+        <Text style={styles.title}>{item.product}</Text>
       </View>
       <ScrollView style={styles.body}>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={{
-              uri: data[0].image,
+              uri: item.image,
             }}
           />
-
         </View>
         <View>
           <Text style={styles.titleProduct}>Detalles del producto:</Text>
-          <Text style={styles.titleDate}>Comprado el 26 de enero, 2019</Text>
+          <Text style={styles.titleDate}>{generateStringDate(item?.createdAt)}</Text>
           <Text style={styles.titleProduct}>Con esta compra acumulaste:</Text>
-          <Text style={styles.points}>100 puntos</Text>
+          <Text style={styles.points}>{item?.points} puntos</Text>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
@@ -41,7 +33,6 @@ const DetailScreen = ({ navigation }) => {
           onPress={() => navigation.navigate('Home')}
         />
       </View>
-      
     </View>
   )
 }
