@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DetailScreen from '../screens/Details/DetailScreen';
 import HomeScreen from '../screens/Home/HomeScreen'
@@ -8,7 +7,6 @@ const Stack = createNativeStackNavigator();
 
 const AppNavigations = () => {
   return (
-      <NavigationContainer>
           <Stack.Navigator>
               <Stack.Screen 
                 name="Home" 
@@ -16,6 +14,7 @@ const AppNavigations = () => {
                 options={{
                   headerShown: false
                 }}
+                testID="home-screen"
               />
               <Stack.Screen 
                 name="Details" 
@@ -23,9 +22,9 @@ const AppNavigations = () => {
                 options={{
                   headerShown: false
                 }}
+                testID="detail-screen"
               />
           </Stack.Navigator>
-      </NavigationContainer>
   )
 }
 

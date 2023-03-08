@@ -1,10 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import AppNavigations from './src/navigations/AppNavigations';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   return (
-    <AppNavigations />
+    <NavigationContainer>
+      <AppNavigations />
+    </NavigationContainer>
   );
 }
 

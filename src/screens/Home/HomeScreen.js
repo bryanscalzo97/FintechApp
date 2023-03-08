@@ -1,101 +1,92 @@
-import { View, StyleSheet } from 'react-native'
-import React, { useEffect, useState} from 'react'
-import Header from './components/Header/Header'
-import Points from './components/Points/Points'
-import Movements from './components/Movements/Movements'
-import ButtonSecondary from '../../components/ButtonSecondary/ButtonSecondary'
-import axios from 'axios'
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary'
-import { calculatePoints, filterByRedemptionTrue, filterByRedemptionFalse } from './utils/utils'
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import axios from 'axios';
+import Header from './components/Header/Header';
+import Points from './components/Points/Points';
+import Movements from './components/Movements/Movements';
+import ButtonSecondary from '../../components/ButtonSecondary/ButtonSecondary';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import { calculatePoints, filterByRedemptionTrue, filterByRedemptionFalse } from './utils/utils';
+
+const API_URL = 'https://6222994f666291106a29f999.mockapi.io/api/v1/products';
 
 const HomeScreen = () => {
-  const [data, setData] = useState(null)
-  const [showAll, setShowAll] = useState(true)
-  const [points, setPoints] = useState('')
+  const [data, setData] = useState([]);
+  const [showAll, setShowAll] = useState(true);
+  const [points, setPoints] = useState('');
 
   const fetchData = async () => {
-    setShowAll(true)
     try {
-      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
-      console.log(data)
-      setData(data)
-      const points = await calculatePoints(data)
-      setPoints(points)
+      setShowAll(true);
+      const { data } = await axios.get(API_URL);
+      setData(data);
+      const points = await calculatePoints(data);
+      setPoints(points);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
-  const fetchDataProfit = async () => {
-    setShowAll(false)
+  };
+
+  const fetchDataByRedemption = async (redemption) => {
     try {
-      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
-      const filterData = await filterByRedemptionFalse(data)
-      setData(filterData)
+      setShowAll(false);
+      const { data } = await axios.get(API_URL);
+      const filteredData = redemption
+        ? filterByRedemptionTrue(data)
+        : filterByRedemptionFalse(data);
+      setData(filteredData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
-  const fetchDataExpenses = async () => {
-    setShowAll(false)
-    try {
-      const {data} = await axios.get('https://6222994f666291106a29f999.mockapi.io/api/v1/products');
-      const filterData = await filterByRedemptionTrue(data)
-      setData(filterData)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  const handleFetchData = () => fetchData();
+
+  const handleFetchDataByRedemption = (redemption) => () => fetchDataByRedemption(redemption);
+
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <Header />
-        <Points points={points}/>
-        <Movements data={data}/>
+        <Points points={points} />
+        <Movements data={data} />
       </View>
-      {showAll ?
-          <View style={styles.buttonSecondaryContainer}>
-            <ButtonSecondary title='Ganados' onPress={() => fetchDataProfit()}/>
-            <ButtonSecondary title='Canjeados' onPress={() => fetchDataExpenses()}/>
-          </View>
-        : <View style={styles.buttonPrincipalContainer}>
-            <ButtonPrimary title='Todos' onPress={() => fetchData()}/>
-          </View>
-      
-      }
-      
-       
+      {showAll ? (
+        <View style={styles.buttonSecondaryContainer}>
+          <ButtonSecondary title="Ganados" onPress={handleFetchDataByRedemption(false)} />
+          <ButtonSecondary title="Canjeados" onPress={handleFetchDataByRedemption(true)} />
+        </View>
+      ) : (
+        <View style={styles.buttonPrimaryContainer}>
+          <ButtonPrimary title="Todos" onPress={handleFetchData} />
+        </View>
+      )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#F8F8F8',
-      flex: 1,
-      paddingTop: 57,
-      paddingBottom: 20,
-      
-    },
-    bodyContainer: {
-      paddingLeft: 20,
-      paddingRight: 20,
-      flex: 1
-    },
-    buttonSecondaryContainer: {
-      flexDirection: 'row',
-      paddingLeft: 13,
-      paddingRight: 13
-    },
-    buttonPrincipalContainer: {
-      paddingRight: 20,
-      paddingLeft: 20
-    }
-    
-  })
+  container: {
+    flex: 1,
+    paddingTop: 57,
+    paddingBottom: 20,
+    backgroundColor: '#F8F8F8',
+  },
+  bodyContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  buttonSecondaryContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 13,
+  },
+  buttonPrimaryContainer: {
+    paddingHorizontal: 20,
+  },
+});
 
-export default HomeScreen
+export default HomeScreen;
