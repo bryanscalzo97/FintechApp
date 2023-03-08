@@ -48,8 +48,6 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
   },
   buttonContainer: {
     padding: 20,

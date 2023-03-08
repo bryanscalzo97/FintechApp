@@ -19,7 +19,8 @@ const Points = ({points}) => {
 const styles = StyleSheet.create({
     container: {
       paddingTop:  10,
-      paddingBottom: 10
+      paddingBottom: 10,
+     
       },
     title: {
         marginBottom: 20,
@@ -37,7 +38,18 @@ const styles = StyleSheet.create({
       paddingRight: 19,
       paddingLeft: 19,
       marginBottom: 20,
-      marginTop: 20
+      marginTop: 20,
+      shadowColor: "#000",
+      shadowOffset: {
+	width: 0,
+	height: 4,
+      },
+      shadowOpacity: 0.30,
+      shadowRadius: 4.65,
+      elevation: 8,
+            
+
+
       
     },
     pointsContainer: {
