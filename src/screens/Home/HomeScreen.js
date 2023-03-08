@@ -21,6 +21,7 @@ const HomeScreen = () => {
       const { data } = await axios.get(API_URL);
       setData(data);
       const points = await calculatePoints(data);
+      console.log(typeof points )
       setPoints(points);
     } catch (error) {
       console.error(error);
@@ -52,7 +53,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <Header />
-        <Points points={points} />
+        <Points points={parseInt(points)} />
         <Movements data={data} />
       </View>
       {showAll ? (

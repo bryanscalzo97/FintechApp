@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, Text } from 'react-native';
 
 const PlusMinusIcon = ({ value }) => {
   const iconColor = value ? 'red' : 'green';
@@ -16,6 +17,8 @@ const PlusMinusIcon = ({ value }) => {
   );
 };
 
-
+PlusMinusIcon.propTypes = {
+  value: PropTypes.bool.isRequired,
+};
 
 export default PlusMinusIcon;

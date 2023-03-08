@@ -46,21 +46,25 @@ const STYLES = {
     fontSize: 14,
     fontWeight: '800',
     color: '#9B9898',
+    fontFamily: "Avenir"
   },
   productDate: {
     fontSize: 16,
     fontWeight: '800',
     paddingTop: 19,
     paddingBottom: 20,
+    fontFamily: "Avenir"
   },
   productPoints: {
     fontSize: 14,
     fontWeight: '800',
     color: '#9B9898',
+    fontFamily: "Avenir"
   },
   productPointsValue: {
     fontSize: 24,
     fontWeight: '800',
     paddingTop: 32,
+    fontFamily: "Avenir"
   },
 };

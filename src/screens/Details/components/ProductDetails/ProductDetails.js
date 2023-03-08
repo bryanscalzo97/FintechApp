@@ -23,17 +23,21 @@ const styles = StyleSheet.create({
       fontSize: 14,
       fontWeight: '800',
       color: '#9B9898',
+      fontFamily: "Avenir"
+      
     },
     titleDate: {
       fontSize: 16,
       fontWeight: '800',
       paddingTop: 19,
       paddingBottom: 20,
+      fontFamily: "Avenir"
     },
     points: {
       fontSize: 24,
       fontWeight: '800',
       paddingTop: 32,
+      fontFamily: "Avenir"
     }
   });
 

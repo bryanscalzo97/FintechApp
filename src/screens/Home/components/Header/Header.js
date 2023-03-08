@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 800
+    fontWeight: 800,
+    fontFamily: "Avenir"
   },
   name: {
     fontSize: 16,
-    fontWeight: 400
+    fontWeight: 400,
+    fontFamily: "Avenir"
   }
 })
 

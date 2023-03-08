@@ -1,17 +1,17 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import ProductImage from './components/ProductImage/ProductImage';
+import ProductHeader from './components/ProductHeader/ProductHeader';
 
 const DetailScreen = ({ navigation, route }) => {
   const { item } = route.params;
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{item.product}</Text>
-      </View>
+      <ProductHeader product={item.product}/>
 
       <ScrollView style={styles.body}>
         <ProductImage uri={item.image} />
@@ -24,8 +24,25 @@ const DetailScreen = ({ navigation, route }) => {
           onPress={() => navigation.navigate('Home')}
         />
       </View>
+      
     </View>
   );
+};
+
+DetailScreen.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      item: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        product: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        is_redemption: PropTypes.bool.isRequired,
+        points: PropTypes.number.isRequired
+      }).isRequired
+    }).isRequired
+  }).isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -33,18 +50,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
     flex: 1,
     paddingBottom: 20,
-  },
-  header: {
-    backgroundColor: '#CFD6FF',
-    height: 150,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 24,
-    justifyContent: 'flex-end',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '800',
   },
   body: {
     flex: 1,

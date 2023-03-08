@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { render } from '@testing-library/react-native';
 import Header from './Header';
 
@@ -21,10 +20,12 @@ describe('Header', () => {
     expect(titleElement.props.style).toEqual({
       fontSize: 20,
       fontWeight: 800,
+      fontFamily: "Avenir"
     });
     expect(nameElement.props.style).toEqual({
       fontSize: 16,
       fontWeight: 400,
+      fontFamily: "Avenir"
     });
     expect(getByTestId('header-container').parent.props.style).toEqual({
       paddingBottom: 10,
