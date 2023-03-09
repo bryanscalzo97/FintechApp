@@ -84,9 +84,11 @@ const styles = StyleSheet.create({
   buttonSecondaryContainer: {
     flexDirection: 'row',
     paddingHorizontal: 13,
+    paddingBottom: 20,
   },
   buttonPrimaryContainer: {
     paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 });
 
