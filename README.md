@@ -34,7 +34,7 @@ Para comenzar a trabajar con este proyecto, sigue estas instrucciones:
 
 
 ## ¿Cómo ejecutar los tests?
-1. Para ejecutar los tests unitarios de esta aplicación, sigue estos pasos:
+1. Para ejecutar los tests unitarios de esta aplicación puedes ejecutar con npm o yarn:
 
      Con npm, ejecuta en la terminal:
      ```bash
