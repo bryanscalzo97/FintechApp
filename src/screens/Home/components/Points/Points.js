@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { formatPoints } from '../../utils/utils';
 
 const Points = ({ points }) => {
   return (
@@ -9,7 +10,7 @@ const Points = ({ points }) => {
       <View style={styles.pointsContainer}>
         <View style={styles.points} testID="points-month">
           <Text style={styles.monthTitle} testID="points-month-title">Diciembre</Text>
-          <Text style={styles.monthPoints} testID="points-month-points">{isNaN(points) ? '-' : points} pts</Text>
+          <Text style={styles.monthPoints} testID="points-month-points">{isNaN(points) ? '-' : formatPoints(points)} pts</Text>
         </View>
       </View>
     </View>

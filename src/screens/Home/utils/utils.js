@@ -9,3 +9,6 @@ export const calculatePoints = async (data) => {
 export const filterByRedemptionFalse = objectsArray => objectsArray.filter(object => !object.is_redemption);
 
 export const filterByRedemptionTrue = objectsArray => objectsArray.filter(object => object.is_redemption);
+
+export const formatPoints = num =>  num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
